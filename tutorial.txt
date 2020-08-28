@@ -1,0 +1,36 @@
+DevOps is a software development methodology which improves the collaboration between dev and ops team using various automations tools.
+These automation tools are implemented using various stages which are part of the DevOps lifecycle.
+
+
+Plan -> Code -> Build -> Test -> Release -> Deploy -> Operate -> Monitor -> Plan ...
+
+What is CI? 
+Automation for deployment the app, continually
+Dev -> VCS -> CI -> Testing server - > Production server
+
+What is Jenkins?
+Open source automation server written in Java. 
+
+AWS - 3 instances
+Jenkin
+Staging
+Production
+
+sudo apt update
+sudo apt install openjdk-8-jdk 
+
+wget –q –O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add –
+
+wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add - sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+sudo apt update
+sudo apt install jenkins
+sudo systemctl start jenkins
+
+
+sudo docker rm -f $(docker ps -q -a)
+sudo docker build /home/ubuntu/jenkins/workspace/website -t website
+sudo docker run -it -p 82:80 -d website
+
+# git
+git rm --cached .idea -r
+git rm --cached terraform/.terraform -r
