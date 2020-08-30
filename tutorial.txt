@@ -36,3 +36,81 @@ git rm --cached .idea -r
 git rm --cached terraform/.terraform -r
 echo ".idea" >> .gitignore
 echo "terraform/.terraform" >> .gitignore
+
+
+
+-- configure jenkins
+after creating the first user, click start using jenkins
+Manage Jenkins and Configure Global Security
+there must be enable the port to connect to the nodes
+Agents: TCP port for inbound agents - Enable Random
+and this random port should be opened on the firewall (save)
+Manages Nodes: New Node: Name: staging: Permanent agent (save)
+Remote root directory: /home/ubuntu/jenkins
+Launch method: Launch agent by connecting it to the master (save)
+New Node: Name: production, permanaent (save)
+Remote root directory: /home/ubuntu/jenkins
+Launch method: Launch agent by connecting it to the master (save)
+click on staging node: copy the command to execute on the staging server
+click on launch to download the slave-agent.jnlp
+click on agent.jar to download the jar
+copy these 2 files to the staging server
+ssh to the staging server and execute the proposed command by jenkins
+java -jar agent.jar -jnlpUrl .... copy from jenkins
+
+cat /var/lib/jenkins/secrets/initialAdminPassword
+
+-- slave config: https://github.com/miztiik/DevOps-Demos/tree/master/setup-jenkins-slave
+private ip
+sudo useradd jenkins-staging
+sudo su - jenkins-staging
+yes | ssh-keygen -t rsa -N "" -f /home/jenkins-staging/.ssh/id_rsa
+cd .ssh
+cat id_rsa.pub > authorized_keys
+chmod 600 authorized_keys
+
+-- master config
+sudo su
+mkdir -p /var/lib/jenkins/.ssh
+cd /var/lib/jenkins/.ssh
+ssh-keyscan -H <private ip> >>/var/lib/jenkins/.ssh/known_hosts
+ssh-keyscan -H 172.31.59.58 >>/var/lib/jenkins/.ssh/known_hosts
+chown jenkins:jenkins known_hosts
+chmod 600 known_hosts
+
+
+-- creating pipeline
+there will be 3 jobs (git, build, deploy)
+new item: freestyle project: git-job
+create index.html
+<html>
+<title>Jenkins CI/CD Pipeline</title>
+<body><h1> Welcome to Jenkins </h1></body>
+</html>
+
+git init
+git remote add origin https://repository....
+git commit -m 'first commit'
+git push
+
+-- github setting
+repository: settings: webhooks:
+URL: http://jenkins-server:8080/github-webhook/
+
+-- git-job
+build trigger github hook GITscm
+restrict this project to : staging
+post build: build other projects: build-job (trigger stable)
+
+-- build-job
+restrict this project to : staging
+build: execute shell
+sudo docker rm -f $(sudo docker ps -a -q)
+sudo docker build /home/ubuntu/jenkins/workspace/git-job -t website ???
+sudo docker run -it -p 82:80 -d website
+
+
+
+-- docker
+FROM docker/httpd
+ADD . /var/www/html
