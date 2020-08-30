@@ -2,8 +2,7 @@ resource "aws_instance" "jenkins" {
   ami = "ami-02354e95b39ca8dec"
   instance_type = "t2.micro"
   key_name = "terraform.key"
-  vpc_security_group_ids = [
-    aws_security_group.ingress-all-jenkins.id]
+  vpc_security_group_ids = [aws_security_group.ingress-all-jenkins.id]
   associate_public_ip_address = true
 
   user_data = <<EOF

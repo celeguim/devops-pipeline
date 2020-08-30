@@ -6,6 +6,7 @@ resource "aws_security_group" "ingress-all-jenkins" {
   name = "allow-all-sg"
   vpc_id = data.aws_vpc.default.id
 
+  # ssh connection
   ingress {
     cidr_blocks = [
       "0.0.0.0/0"
@@ -15,6 +16,7 @@ resource "aws_security_group" "ingress-all-jenkins" {
     protocol = "tcp"
   }
 
+  # http server
   ingress {
     cidr_blocks = [
       "0.0.0.0/0"
@@ -24,6 +26,7 @@ resource "aws_security_group" "ingress-all-jenkins" {
     protocol = "tcp"
   }
 
+  # jenkins server
   ingress {
     cidr_blocks = [
       "0.0.0.0/0"
@@ -40,6 +43,7 @@ resource "aws_security_group" "ingress-all-jenkins" {
     self = true
   }
 
+  # we will need to update and install packages from internet
   egress {
     cidr_blocks = [
       "0.0.0.0/0"
