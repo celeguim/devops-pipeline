@@ -3,18 +3,44 @@
 
 ![Technical Design](/images/jenkins.svg)
 
-![Technical Design](/images/jenkins.png)
 
-# Create the environment using terraform
+## Create the environment using terraform
 
-## install aws client and configure
+## Install AWS client and configure
 
     $ aws configure
-    
+    $ terraform plan
     $ terraform apply
 
+*Terraform will deploy 3 instances*
+1. Jenkins Master
+2. Staging
+3. Production
 
-## Images
-![Example of images](/images/screen1.png)
-Format: ![Alt Text](url)
+*It will be installed Jenkins and docker.*
+*SSH keys will be exchanged*  
 
+![Instances](/images/screen2.png)
+
+![AWS Instances](/images/screen1.png)
+
+1. Login to Jenkins server http://public_ip:8080
+
+2. Password can be found on Jenkins server:/var/lib/jenkins/secrets/initialAdminPassword
+
+3. Install suggested plugins
+
+4. Create new user
+
+5. Manage Jenkins
+
+6. Manage Nodes and Cloud
+
+7. New Node (staging, permanent)  
+Remote root dir: /home/jenkins-staging  
+Launch method via SSH  
+Host: private_ip  
+Credentials: SSH with private key  
+ID: jenkins-staging  
+Username: jenkins-staging  
+Private key: Enter directly (copy/paste /home/jenkins-staging/.ssh/id_rsa from staging server)
