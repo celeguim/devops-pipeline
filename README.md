@@ -7,4 +7,6 @@
     
     $ terraform apply
 
-xxxxxx
+## Images
+![Example of images](/images/screen1.png)
+Format: ![Alt Text](url)
