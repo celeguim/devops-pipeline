@@ -8,7 +8,7 @@ resource "aws_instance" "jenkins" {
   user_data = <<EOF
     #!/bin/bash
     sudo yum update -y
-    sudo yum install -y java-1.8.0-openjdk
+    sudo yum install -y java-1.8.0-openjdk git
     sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
     sudo rpm --import http://pkg.jenkins-ci.org/redhat-stable/jenkins-ci.org.key
     sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key
@@ -40,7 +40,7 @@ resource "aws_instance" "staging" {
   user_data = <<EOF
     #!/bin/bash
     sudo yum update -y
-    sudo yum install -y docker java-1.8.0-openjdk
+    sudo yum install -y docker java-1.8.0-openjdk git
     sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
     sudo rpm --import http://pkg.jenkins-ci.org/redhat-stable/jenkins-ci.org.key
     sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key
@@ -75,7 +75,7 @@ resource "aws_instance" "production" {
   user_data = <<EOF
     #!/bin/bash
     sudo yum update -y
-    sudo yum install -y docker java-1.8.0-openjdk
+    sudo yum install -y docker java-1.8.0-openjdk git
     sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
     sudo rpm --import http://pkg.jenkins-ci.org/redhat-stable/jenkins-ci.org.key
     sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key
