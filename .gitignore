@@ -1,4 +1,5 @@
-terraform/.terraform/
+terraform/jenkins-setup/.terraform
+terraform/kubernetes-setup/.terraform
 .idea/
 .DS_Store
 .git/

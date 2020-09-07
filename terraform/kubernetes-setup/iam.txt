@@ -1,0 +1,9 @@
+EC2 instances
+- EC2FullAccess
+- S3FullAccess
+- Route53FullAccess
+- IAMFullAcess
+Name: k8s-role
+
+ubuntu: ami-06b263d6ceff0b3dd
+name: k8s-admin
