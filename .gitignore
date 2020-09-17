@@ -1,5 +1,6 @@
 terraform/jenkins-setup/.terraform
 terraform/kubernetes-setup/.terraform
+terraform/kubernetes-test/.terraform
 .idea/
 .DS_Store
 .git/
