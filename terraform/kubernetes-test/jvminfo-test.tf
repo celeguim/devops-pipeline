@@ -1,18 +1,9 @@
-provider "kubernetes" {
-  host = "https://localhost:6443"
-}
 
-resource "kubernetes_namespace" "namespace1" {
+resource "kubernetes_deployment" "jvminfo" {
   metadata {
-        name = "my-first-terraform-namespace"
-  }
-}
-
-resource "kubernetes_deployment" "nginx" {
-  metadata {
-    name = "scalable-nginx-example"
+    name = "jvminfo-deployment"
     labels = {
-      App = "ScalableNginxExample"
+      App = "jvminfo"
     }
   }
 
@@ -20,22 +11,22 @@ resource "kubernetes_deployment" "nginx" {
     replicas = 2
     selector {
       match_labels = {
-        App = "ScalableNginxExample"
+        App = "jvminfo"
       }
     }
     template {
       metadata {
         labels = {
-          App = "ScalableNginxExample"
+          App = "jvminfo"
         }
       }
       spec {
         container {
-          image = "nginx:1.7.8"
-          name  = "example"
+          image = "celeguim/jvminfo"
+          name  = "jvminfo"
 
           port {
-            container_port = 80
+            container_port = 8080
           }
 
           resources {
@@ -54,9 +45,9 @@ resource "kubernetes_deployment" "nginx" {
   }
 }
 
-resource "kubernetes_service" "nginx" {
+resource "kubernetes_service" "jvminfo" {
   metadata {
-    name = "nginx-example"
+    name = "jvminfo"
   }
   spec {
     selector = {
@@ -64,8 +55,8 @@ resource "kubernetes_service" "nginx" {
     }
     port {
       node_port   = 30201
-      port        = 80
-      target_port = 80
+      port        = 8080
+      target_port = 8080
     }
 
     type = "NodePort"

@@ -5,3 +5,4 @@ terraform/kubernetes-test/.terraform
 .DS_Store
 .git/
 __pycache__
+terraform/eks-setup/.terraform/
