@@ -55,8 +55,8 @@ resource "kubernetes_service" "jvminfo" {
     }
     port {
       node_port   = 30201
-      port        = 8080
-      target_port = 8080
+      port        = 8081
+      target_port = 8081
     }
 
     type = "NodePort"
