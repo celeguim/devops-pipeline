@@ -44,3 +44,10 @@ Credentials: SSH with private key
 ID: jenkins-staging  
 Username: jenkins-staging  
 Private key: Enter directly (copy/paste /home/jenkins-staging/.ssh/id_rsa from staging server)
+
+8. Install Jenkins Plugin
+- Docker
+- Docker Pipeline
+
+9. Create credential dockerhub
+- Jenkins/Manage Jenkins/Manage Credentials

@@ -6,3 +6,9 @@ terraform/kubernetes-test/.terraform
 .git/
 __pycache__
 terraform/eks-setup/.terraform/
+*.tfstate
+**/terraform.tfstate
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
